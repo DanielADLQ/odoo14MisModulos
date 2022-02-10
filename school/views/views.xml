@@ -8,9 +8,33 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="birth_year"/>
         </tree>
       </field>
     </record>
+
+
+    <record model="ir.ui.view" id="school.classroom_list">
+      <field name="name">school.classroom list</field>
+      <field name="model">school.classroom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="school.teacher_list">
+      <field name="name">school.teacher list</field>
+      <field name="model">school.teacher</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
 
 
     <!-- actions opening views on models -->
@@ -18,6 +42,19 @@
     <record model="ir.actions.act_window" id="school.action_student_window">
       <field name="name">school student window</field>
       <field name="res_model">school.student</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="school.action_classroom_window">
+      <field name="name">school classroom window</field>
+      <field name="res_model">school.classroom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="school.action_teacher_window">
+      <field name="name">school teacher window</field>
+      <field name="res_model">school.teacher</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -50,6 +87,13 @@
 
     <menuitem name="Students" id="school.menu_students_list" parent="school.menu_1"
               action="school.action_student_window"/>
+
+    <menuitem name="Classrooms" id="school.menu_classrooms_list" parent="school.menu_1"
+              action="school.action_classroom_window"/>
+
+    <menuitem name="Teachers" id="school.menu_teachers_list" parent="school.menu_1"
+              action="school.action_teacher_window"/>
+
 
   </data>
 </odoo>
