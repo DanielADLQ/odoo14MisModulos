@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_devmeet_developer,devmeet.developer,model_devmeet_developer,base.group_user,1,1,1,1
+access_devmeet_technology,devmeet.technology,model_devmeet_technology,base.group_user,1,1,1,1
+access_devmeet_event,devmeet.event,model_devmeet_event,base.group_user,1,1,1,1

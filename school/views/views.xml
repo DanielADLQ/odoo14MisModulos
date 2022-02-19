@@ -6,9 +6,10 @@
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree decoration-info="birth_year>2000" decoration-warning="birth_year&lt;1980"> <!--Ese &lt; sustituye a < que suele dar problemas en xml al usarse para etiquetas-->
           <field name="name"/>
-          <field name="birth_year"/>
+          <field name="password"/>
+          <field name="birth_year" invisible="1"/> <!--sum="Total"-->
         </tree>
       </field>
     </record>

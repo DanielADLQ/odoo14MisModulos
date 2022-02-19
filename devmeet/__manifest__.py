@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "school Prueba",
+    'name': "devmeet",
 
     'summary': """
-        Es mi primer modulo de prueba para Odoo14""",
+        modulo practica DevMeet""",
 
     'description': """
-        Este modulo de prueba servira para gestion de centros educativos
+        Modulo de practica llamado DevMeet
     """,
 
     'author': "DanielALQ",
@@ -15,7 +15,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Modulo de pruebas',
+    'category': 'Practica modulos odoo',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -30,6 +30,5 @@
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
-        'demo/students.xml',
     ],
 }
