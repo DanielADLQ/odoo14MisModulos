@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from email.policy import default
 import re
 import secrets
 import string
@@ -105,7 +106,7 @@ class classroom(models.Model):
      _description = 'devmeet.classroom'
 
      name = fields.Char()
-     desc = fields.Char()
+     desc = fields.Char(default="Class for events")
 
      events = fields.One2many(comodel_name='devmeet.event', inverse_name='classroom')
 

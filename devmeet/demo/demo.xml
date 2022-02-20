@@ -18,6 +18,6 @@
             <field name="classroom" ref="classroom1"></field>
             <field name="technologies" eval="[(6,0,[ref('devmeet.technology1')])]"></field>
           </record>
-
+        
     </data>
 </odoo>
