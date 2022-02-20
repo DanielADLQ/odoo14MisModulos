@@ -30,10 +30,9 @@ class developer(models.Model):
      name = fields.Char()
      surname = fields.Char()
      dni = fields.Char(string='DNI')
-
      email = fields.Char()
-
      photo = fields.Image(max_width=200,max_height=200)
+     last_login = fields.Datetime(default=lambda d: fields.Datetime.now())
 
      technologies = fields.Many2many(comodel_name='devmeet.technology', relation='developers_technology',column1='developer_id',column2='technology_id')
      technologies_of_interest = fields.Many2many(comodel_name='devmeet.technology', relation='developers_technology_interest',column1='developer_id',column2='technology_id')
@@ -49,7 +48,7 @@ class developer(models.Model):
             if regex.match(dev.dni):
                 _logger.info('DNI correcto')
             else:
-                raise ValidationError('Formato incorrecto: DNI')
+                raise ValidationError('Wrong format: DNI')
 
      _sql_constraints = [('dni_uniq','unique(dni)','DNI can\'t be repeated')]
 
@@ -60,7 +59,7 @@ class developer(models.Model):
             if regex.match(dev.email):
                 _logger.info('email correcto')
             else:
-                raise ValidationError('Formato incorrecto: email')
+                raise ValidationError('Wrong format: email')
 
 
      #password Con lambda
@@ -80,21 +79,35 @@ class technology(models.Model):
 
      events = fields.Many2many(comodel_name='devmeet.event', relation='technologies_event',column1='technology_id',column2='event_id')
 
+     _sql_constraints = [('tech_name_uniq','unique(name)','This technology is already registered')]
+
+    
 class event(models.Model):
      _name = 'devmeet.event'
      _description = 'devmeet.event'
 
      name = fields.Char()
-     start_date = fields.Date()
+     start_date = fields.Date(default=lambda d: fields.Date.today())
      end_date = fields.Date()
-     type = fields.Char() #Obligar a que sea presencial u online
-
-     classroom = fields.Char()
+     type = fields.Char() #Check if it's online or not. If it's not online, it is required to register a place
 
      speakers = fields.Many2many(comodel_name='devmeet.developer', relation='developers_event', column1='event_id', column2='developer_id')
      assistants = fields.Many2many(comodel_name='devmeet.developer', relation='developers_event_assistant', column1='event_id', column2='developer_id')
 
      technologies = fields.Many2many(comodel_name='devmeet.technology', relation='technologies_event',column1='event_id',column2='technology_id')
+
+     classroom = fields.Many2one('devmeet.classroom', ondelete='set null', help='Class where the event will be held')
+
+     _sql_constraints = [('check_dates','check(end_date >= start_date)','End date must be at least the same day than start date')]
+
+class classroom(models.Model):
+     _name = 'devmeet.classroom'
+     _description = 'devmeet.classroom'
+
+     name = fields.Char()
+     desc = fields.Char()
+
+     events = fields.One2many(comodel_name='devmeet.event', inverse_name='classroom')
 
 #     @api.depends('value')
 #     def _value_pc(self):

@@ -38,7 +38,16 @@
       </field>
     </record>
 
-
+    <record model="ir.ui.view" id="devmeet.classroom_list">
+      <field name="name">devmeet.classroom list</field>
+      <field name="model">devmeet.classroom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="desc"/>
+        </tree>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
 
@@ -60,6 +69,11 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="devmeet.action_classroom_window">
+      <field name="name">devmeet classroom window</field>
+      <field name="res_model">devmeet.classroom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- server action to the one above -->
 <!--
@@ -95,6 +109,10 @@
 
     <menuitem name="Events" id="devmeet.menu_events_list" parent="devmeet.menu_1"
               action="devmeet.action_event_window"/>
+
+    <menuitem name="Classrooms" id="devmeet.menu_classrooms_list" parent="devmeet.menu_1"
+              action="devmeet.action_classroom_window"/>
+
 
   </data>
 </odoo>

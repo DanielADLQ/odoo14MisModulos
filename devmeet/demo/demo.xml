@@ -1,30 +1,23 @@
 <odoo>
     <data>
-<!--
-          <record id="object0" model="devmeet.devmeet">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
+
+          <record id="technology1" model="devmeet.technology">
+            <field name="name">Python</field>
+            <field name="official_page">https://www.python.org/</field>
+          </record>
+          
+          <record id="classroom1" model="devmeet.classroom">
+            <field name="name">Class1</field>
+            <field name="desc">Initial classroom</field>
           </record>
 
-          <record id="object1" model="devmeet.devmeet">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
+          <record id="event1" model="devmeet.event">
+            <field name="name">Event1</field>
+            <field name="start_date">2050-01-01T00:00:00</field>
+            <field name="end_date">2051-12-31T00:00:00</field>
+            <field name="classroom" ref="classroom1"></field>
+            <field name="technologies" eval="[(6,0,[ref('devmeet.technology1')])]"></field>
           </record>
 
-          <record id="object2" model="devmeet.devmeet">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
-
-          <record id="object3" model="devmeet.devmeet">
-            <field name="name">Object 3</field>
-            <field name="value">30</field>
-          </record>
-
-          <record id="object4" model="devmeet.devmeet">
-            <field name="name">Object 4</field>
-            <field name="value">40</field>
-          </record>
--->
     </data>
 </odoo>
