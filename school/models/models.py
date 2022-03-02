@@ -44,10 +44,17 @@ class student(models.Model):
         #sin lambda lo haria solo la primera vez en odoo, cuando arrancamos el servicio
     
     is_student = fields.Boolean()
+
+    level = fields.Selection([('1','1'),('2','2')])
+
     photo = fields.Image(max_width=200,max_height=200)
 
-    classroom = fields.Many2one('school.classroom', ondelete='set null', help='Clase a la que pertenece') #Muchos studiantes en una clase
+    classroom = fields.Many2one('school.classroom', domain="[('level','=',level)]", ondelete='set null', help='Clase a la que pertenece') #Muchos estudiantes en una clase
+    #Domain filtra los que tengan ese level, primero indicas level y ya luego te da las clases posibles
+    #Se puede poner en la vista, pero es mejor aqui en el modelo
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
+
+    state = fields.Selection([('1','Matriculado'),('2','Estudiante'),('3','Ex-estudiante')])
 
     @api.constrains('dni')
     def _check_dni(self):
@@ -60,6 +67,11 @@ class student(models.Model):
 
     _sql_constraints = [('dni_uniq','unique(dni)','DNI can\'t be repeated')]
 
+    def regenerate_password(self):
+        for student in self:
+            pw = secrets.token_urlsafe(12)
+            #Almacenar en bbdd
+            student.write({'password':pw})
 
     #@api.one para recibir solo un estudiante, si no pones nada recibe una lista
     @api.depends('name') #Ocurrira al cambiar el nombre
@@ -79,6 +91,9 @@ class classroom(models.Model):
     _descripcion = "Las clases"
 
     name = fields.Char()
+
+    level = fields.Selection([('1','1'),('2','2')])
+
     students = fields.One2many(string="Alumnos", comodel_name='school.student', inverse_name='classroom') #1 clase, muchos estudiantes. Classroom es la clave ajena de la relacion
 
     teachers = fields.Many2many(comodel_name='school.teacher', relation='teachers_classroom', column1='classroom_id', column2='teacher_id')
@@ -106,6 +121,9 @@ class teacher(models.Model):
     _descripcion = "Los profesores"
 
     name = fields.Char()
+
+    topic = fields.Char()
+    phone = fields.Char()
 
     classrooms = fields.Many2many(comodel_name='school.classroom', relation='teachers_classroom', column1='teacher_id', column2='classroom_id')
     classrooms_last_year = fields.Many2many(comodel_name='school.classroom', relation='teachers_classroom_ly', column1='teacher_id', column2='classroom_id')

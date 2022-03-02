@@ -30,10 +30,10 @@ class developer(models.Model):
 
      name = fields.Char()
      surname = fields.Char()
-     dni = fields.Char(string='DNI')
+     dni = fields.Char(string='DNI', required=True)
      email = fields.Char()
      photo = fields.Image(max_width=200,max_height=200)
-     last_login = fields.Datetime(default=lambda d: fields.Datetime.now())
+     activity = fields.Datetime(default=lambda d: fields.Datetime.now())
 
      technologies = fields.Many2many(comodel_name='devmeet.technology', relation='developers_technology',column1='developer_id',column2='technology_id')
      technologies_of_interest = fields.Many2many(comodel_name='devmeet.technology', relation='developers_technology_interest',column1='developer_id',column2='technology_id')
@@ -73,7 +73,7 @@ class technology(models.Model):
 
      name = fields.Char()
      official_page = fields.Char()
-     logo = fields.Image(max_width=200,max_height=200)
+     logo = fields.Image(max_width=50,max_height=50)
 
      developers = fields.Many2many(comodel_name='devmeet.developer', relation='developers_technology',column1='technology_id',column2='developer_id')
      interested_developers = fields.Many2many(comodel_name='devmeet.developer', relation='developers_technology_interest',column1='technology_id',column2='developer_id')
@@ -90,7 +90,7 @@ class event(models.Model):
      name = fields.Char()
      start_date = fields.Date(default=lambda d: fields.Date.today())
      end_date = fields.Date()
-     type = fields.Char() #Check if it's online or not. If it's not online, it is required to register a place
+     requires_attendance = fields.Boolean() #Check if it's online or not. If it's not online, it is required to register a place
 
      speakers = fields.Many2many(comodel_name='devmeet.developer', relation='developers_event', column1='event_id', column2='developer_id')
      assistants = fields.Many2many(comodel_name='devmeet.developer', relation='developers_event_assistant', column1='event_id', column2='developer_id')

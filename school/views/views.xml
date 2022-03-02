@@ -15,6 +15,73 @@
     </record>
 
 
+    <record model="ir.ui.view" id="school.student_form">
+      <field name="name">school.student form</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <form> 
+
+          <header>
+            <field name="state" widget="statusbar"></field>
+          </header>
+
+          <sheet>
+            <!--Codigo para smartButton en video o repo-->
+
+            <field name="photo" widget="image" class="oe_avatar"/>
+            <group>
+              <group>
+                <separator string="Personal Data"></separator>
+                <field name="name"/>
+                <field name="password" password="True"/>
+                
+                <field name="dni"/>
+                <field name="birth_year"/>
+                <field name="description"/>
+              </group>
+              <group>
+                <separator string="Inscription Data"></separator>
+                <field name="inscription_date"/>
+                <field name="last_login"/>
+                <field name="is_student"/>
+                <field name="classroom" attrs="{'invisible':[('is_student','=',False)], 'required':[('is_student','=',True)]}"/>
+                <field name="level"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Teachers">
+                <field name="teachers">
+                  <tree>
+                    <field name="name"/>
+                    <field name="topic"/>
+                  </tree>
+                </field>
+              </page>
+              <!--<page string="otra Pagina">
+                <field name="classroom"/>
+              </page>-->
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!--<record id="model_name_view_kanban" model="ir.ui.view">
+      <field name="name">model.name.view.kanban</field>
+      <field name="model"></field>
+      <field name="arch" type="xml">
+        <kanban>
+          <templates>
+            <t t-name="kanban-box">
+              
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>-->
+
+
     <record model="ir.ui.view" id="school.classroom_list">
       <field name="name">school.classroom list</field>
       <field name="model">school.classroom</field>
@@ -32,6 +99,8 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="topic"/>
+          <field name="phone"/>
         </tree>
       </field>
     </record>
@@ -43,7 +112,7 @@
     <record model="ir.actions.act_window" id="school.action_student_window">
       <field name="name">school student window</field>
       <field name="res_model">school.student</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="school.action_classroom_window">

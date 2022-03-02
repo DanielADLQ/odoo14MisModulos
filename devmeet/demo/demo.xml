@@ -5,18 +5,37 @@
             <field name="name">Python</field>
             <field name="official_page">https://www.python.org/</field>
           </record>
+
+          <record id="technology2" model="devmeet.technology">
+            <field name="name">C#</field>
+            <field name="official_page">https://docs.microsoft.com/</field>
+          </record>
           
           <record id="classroom1" model="devmeet.classroom">
             <field name="name">Class1</field>
             <field name="desc">Initial classroom</field>
           </record>
 
+          <record id="classroom2" model="devmeet.classroom">
+            <field name="name">Class2</field>
+            <field name="desc">Semicircular class</field>
+          </record>
+
           <record id="event1" model="devmeet.event">
             <field name="name">Event1</field>
-            <field name="start_date">2050-01-01T00:00:00</field>
-            <field name="end_date">2051-12-31T00:00:00</field>
-            <field name="classroom" ref="classroom1"></field>
+            <field name="start_date">2023-01-01t00:00:00</field>
+            <field name="end_date">2023-12-31t00:00:00</field>
+            <field name="requires_attendance">false</field>
             <field name="technologies" eval="[(6,0,[ref('devmeet.technology1')])]"></field>
+          </record>
+
+          <record id="event2" model="devmeet.event">
+            <field name="name">Event2</field>
+            <field name="start_date">2021-04-06t00:00:00</field>
+            <field name="end_date">2021-06-21t00:00:00</field>
+            <field name="requires_attendance">true</field>
+            <field name="classroom" ref="classroom2"></field>
+            <field name="technologies" eval="[(6,0,[ref('devmeet.technology2')])]"></field>
           </record>
         
     </data>
